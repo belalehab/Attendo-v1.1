@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "attendo",
-  "version": "0.1.0",
+  "productName": "Attendo",
+  "version": "1.1.0",
   "identifier": "com.attendo.app",
   "build": {
     "frontendDist": "../dist",
@@ -29,6 +29,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "publisher": "Dr. Belal El-Fakharany",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

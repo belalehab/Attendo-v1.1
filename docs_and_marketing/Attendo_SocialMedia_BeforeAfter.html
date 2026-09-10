@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Before & After Comparison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a; 
+            color: white; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact;
+        }
+        /* Instagram Post Ratio 4:5 (1080 x 1350) */
+        .social-post {
+            width: 1080px;
+            height: 1350px;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+        .vs-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: #0f172a;
+            border: 4px solid #1e293b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: white;
+            z-index: 20;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        
+        .glass-panel {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+        }
+
+        .cta-banner {
+            background: linear-gradient(135deg, #2dd4bf 0%, #6366f1 100%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Instructions for the User -->
+    <div class="fixed top-4 left-4 bg-teal-500/20 border border-teal-500 text-teal-100 p-4 rounded-xl z-50 text-sm max-w-xs shadow-2xl backdrop-blur-md">
+        <p class="font-bold mb-2">📸 Export Instructions:</p>
+        <p class="mb-2">This layout is optimized exactly for Instagram/Facebook posts (1080x1350).</p>
+        <p>Press <kbd class="bg-gray-800 px-1 rounded">Ctrl + P</kbd> to save as PDF, OR use a screenshot tool (like Snipping Tool) to capture the main graphic as a JPG/PNG.</p>
+    </div>
+
+    <!-- Social Media Graphic -->
+    <div class="social-post rounded-3xl" id="capture-area">
+        
+        <!-- Header -->
+        <div class="pt-12 pb-6 px-16 flex justify-between items-center z-10">
+            <div class="flex items-center gap-4">
+                <img src="../public/attendo-icon.png" class="w-16 h-16 drop-shadow-[0_0_15px_rgba(45,212,191,0.5)]" alt="Attendo Logo" />
+                <span class="text-4xl font-black tracking-tighter">ATTENDO</span>
+            </div>
+            <div class="text-xl font-bold tracking-widest uppercase text-gray-400">
+                Professor's Reality Check
+            </div>
+        </div>
+
+        <!-- Split Content Area -->
+        <div class="flex-1 flex relative">
+            
+            <!-- VS Badge -->
+            <div class="vs-badge">VS</div>
+
+            <!-- Left: Before Attendo (Pain Points) -->
+            <div class="flex-1 p-16 pt-16 relative overflow-hidden bg-gradient-to-br from-rose-950/40 to-transparent border-r border-white/5 flex flex-col items-center text-center">
+                <div class="absolute -top-40 -left-40 w-96 h-96 bg-rose-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+                
+                <h2 class="text-6xl font-black text-rose-500 mb-4 uppercase tracking-tight">Before Attendo</h2>
+                <p class="text-2xl text-gray-400 mb-16 font-medium italic">The Manual Nightmare</p>
+
+                <div class="space-y-10 relative z-10 w-full max-w-md">
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0">
+                            <i data-lucide="x" class="w-8 h-8 text-rose-500 font-black"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-left leading-tight">Messy Paper Rosters</h3>
+                    </div>
+                    
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0">
+                            <i data-lucide="x" class="w-8 h-8 text-rose-500 font-black"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-left leading-tight">15 Mins Wasted on Roll Calls</h3>
+                    </div>
+
+                    <div class="flex items-center gap-6">
+                        <div class="w-16 h-16 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0">
+                            <i data-lucide="x" class="w-8 h-8 text-rose-500 font-black"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-left leading-tight">Weekend Data Entry</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: After Attendo (Solutions) -->
+            <div class="flex-1 p-16 pt-16 relative overflow-hidden bg-gradient-to-bl from-teal-900/40 to-transparent flex flex-col items-center text-center">
+                <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+                
+                <h2 class="text-6xl font-black text-teal-400 mb-4 uppercase tracking-tight">With Attendo</h2>
+                <p class="text-2xl text-gray-300 mb-16 font-medium italic">The Automated Ecosystem</p>
+
+                <div class="space-y-10 relative z-10 w-full max-w-md">
+                    <div class="flex items-center gap-6 transform transition-transform hover:scale-105">
+                        <div class="w-16 h-16 rounded-full bg-teal-500/20 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(45,212,191,0.3)]">
+                            <i data-lucide="check" class="w-8 h-8 text-teal-400 font-black"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-left leading-tight text-white">Instant QR Scanning</h3>
+                    </div>
+                    
+                    <div class="flex items-center gap-6 transform transition-transform hover:scale-105">
+                        <div class="w-16 h-16 rounded-full bg-teal-500/20 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(45,212,191,0.3)]">
+                            <i data-lucide="check" class="w-8 h-8 text-teal-400 font-black"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-left leading-tight text-white">100% Focus on Teaching</h3>
+                    </div>
+
+                    <div class="flex items-center gap-6 transform transition-transform hover:scale-105">
+                        <div class="w-16 h-16 rounded-full bg-teal-500/20 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(45,212,191,0.3)]">
+                            <i data-lucide="check" class="w-8 h-8 text-teal-400 font-black"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-left leading-tight text-white">Automated PDF Reports</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer / CTA -->
+        <div class="cta-banner p-12 text-center relative z-20 shadow-[0_-20px_50px_rgba(45,212,191,0.2)]">
+            <h2 class="text-5xl font-black text-white mb-4">Reclaim Your Academic Time.</h2>
+            <p class="text-2xl text-teal-100 font-medium mb-8">Stop managing papers. Start managing success.</p>
+            
+            <div class="inline-flex items-center gap-6 bg-slate-900 px-10 py-5 rounded-2xl border border-white/20 shadow-2xl">
+                <span class="text-3xl font-bold text-white">Start Your 14-Day Free Trial Today</span>
+                <div class="w-px h-10 bg-white/20"></div>
+                <div class="flex items-center gap-3 text-teal-400">
+                    <i data-lucide="mouse-pointer-click" class="w-8 h-8"></i>
+                    <span class="text-2xl font-black uppercase tracking-widest">Link in Bio</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

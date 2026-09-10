@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Email Campaign Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #f8fafc; padding: 2rem; color: #334155; }
+        .template-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .copy-btn { background: #0f172a; color: white; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; float: right; border: none; }
+        .copy-btn:hover { background: #1e293b; }
+        pre { white-space: pre-wrap; font-family: inherit; font-size: 1rem; line-height: 1.6; color: #0f172a; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-2 text-slate-900">Attendo Email Marketing Templates</h1>
+        <p class="text-slate-500 mb-8">Copy and paste these templates to pitch Attendo to university faculty and department heads.</p>
+
+        <!-- Template 1 -->
+        <div class="template-card">
+            <button class="copy-btn" onclick="copyText('t1')">Copy Text</button>
+            <h2 class="text-lg font-bold text-teal-600 mb-4">Template 1: The Cold Pitch (To Individual Professors)</h2>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-md mb-4">
+                <strong>Subject:</strong> Stop wasting 15 minutes of lecture time on roll calls.
+            </div>
+            <pre id="t1">Dear Professor [Name],
+
+I know how valuable your lecture time is. Passing around paper attendance sheets often results in academic fraud, and calling out names manually wastes up to 15 minutes of crucial teaching time.
+
+That is why I built Attendo—an offline, incredibly fast QR attendance system designed specifically for educators. 
+
+With Attendo, your students scan their University IDs using your laptop or smartphone camera on their way into the hall. They are marked present in 0.2 seconds. No internet required, no cloud subscriptions, and your data stays entirely on your local machine.
+
+At the end of the semester, you can export the master PDF and Excel reports with a single click.
+
+I would love for you to try it completely free for 14 days. You can download the software here: [Link to Website]
+
+Best regards,
+
+Dr. Belal El-Fakharany
+Creator of Attendo</pre>
+        </div>
+
+        <!-- Template 2 -->
+        <div class="template-card">
+            <button class="copy-btn" onclick="copyText('t2')">Copy Text</button>
+            <h2 class="text-lg font-bold text-teal-600 mb-4">Template 2: The Department Pitch (To Department Heads/Deans)</h2>
+            <div class="bg-slate-50 border border-slate-200 p-4 rounded-md mb-4">
+                <strong>Subject:</strong> Modernizing attendance tracking for the [Department Name] Department
+            </div>
+            <pre id="t2">Dear Dr. [Name],
+
+I am writing to introduce Attendo, a local-first software solution designed to modernize how our faculty tracks student attendance, eliminating paper waste and academic fraud.
+
+Currently, faculty members spend hours every semester manually transferring paper sign-in sheets into Excel spreadsheets. Attendo completely automates this process through high-speed QR scanning. 
+
+Unlike expensive cloud solutions, Attendo runs entirely offline on the professor's computer, ensuring strict compliance with local data privacy regulations. It instantly generates master PDF and Excel reports ready for administration.
+
+I am currently offering "Ultimate" department-wide licenses that cover 5+ faculty members at a heavily discounted rate. I would be happy to provide you with a free administrative demo.
+
+Please let me know if you are available for a brief 10-minute presentation next week.
+
+Best regards,
+
+Dr. Belal El-Fakharany
+Creator of Attendo</pre>
+        </div>
+
+    </div>
+
+    <script>
+        function copyText(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+            alert("Copied to clipboard!");
+        }
+    </script>
+</body>
+</html>

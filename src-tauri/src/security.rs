@@ -9,12 +9,13 @@ pub struct LicenseClaims {
     pub exp: usize,
 }
 
+#[cfg(target_os = "windows")]
 pub async fn generate_hardware_fingerprint() -> Result<String, String> {
     let output = Command::new("powershell")
         .args(&[
             "-NoProfile",
             "-Command",
-            "Try { $board = (Get-CimInstance Win32_BaseBoard).SerialNumber; $cpu = (Get-CimInstance Win32_Processor).ProcessorId; $disk = (Get-CimInstance Win32_DiskDrive)[0].SerialNumber; Write-Output \"$board-$cpu-$disk\" } Catch { Write-Output 'error' }"
+            "Try {  = (Get-CimInstance Win32_BaseBoard).SerialNumber;  = (Get-CimInstance Win32_Processor).ProcessorId;  = (Get-CimInstance Win32_DiskDrive)[0].SerialNumber; Write-Output \"--\" } Catch { Write-Output 'error' }"
         ])
         .output()
         .map_err(|e| e.to_string())?;
@@ -28,6 +29,12 @@ pub async fn generate_hardware_fingerprint() -> Result<String, String> {
     hasher.update(raw.as_bytes());
     let result = hasher.finalize();
     Ok(hex::encode(result))
+}
+
+#[cfg(target_os = "android")]
+pub async fn generate_hardware_fingerprint() -> Result<String, String> {
+    // Return a generic device ID for Android for now
+    Ok("ANDROID_MOBILE_DEVICE_001".to_string())
 }
 
 pub fn verify_license(token: &str, expected_hw_id: &str) -> Result<LicenseClaims, String> {

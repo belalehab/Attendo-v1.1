@@ -1,0 +1,15 @@
+{
+  "name": "attendo_license_manager",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "tauri": "tauri"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  },
+  "dependencies": {
+    "sharp": "^0.35.4"
+  }
+}

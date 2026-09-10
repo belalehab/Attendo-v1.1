@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Official Pricing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a; 
+            color: white; 
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            margin: 0;
+            padding: 0;
+        }
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+        @media print {
+            body { background-color: #0f172a !important; color: white !important; }
+            .print-page { page-break-after: always; height: 297mm; width: 210mm; overflow: hidden; position: relative; }
+            .no-print { display: none !important; }
+        }
+        .print-page { height: 297mm; width: 210mm; margin: 0 auto; background: #0f172a; position: relative; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        
+        .pricing-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 2rem; border-radius: 1.5rem; backdrop-filter: blur(10px); position: relative; }
+        .pricing-card.ultimate { border-color: rgba(45, 212, 191, 0.4); background: rgba(45, 212, 191, 0.05); }
+        .ultimate-badge { position: absolute; top: 0; right: 0; background: #2dd4bf; color: #0f172a; font-size: 0.65rem; font-weight: 900; padding: 0.4rem 1rem; border-bottom-left-radius: 1rem; border-top-right-radius: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
+</head>
+<body class="py-10 print:py-0">
+
+    <div class="no-print max-w-2xl mx-auto bg-teal-500/20 border border-teal-500/50 text-teal-100 p-6 rounded-xl mb-10 text-center shadow-xl">
+        <h2 class="text-xl font-bold mb-2">New Consistent Card Design Ready!</h2>
+        <p class="text-sm">Press <kbd class="bg-gray-800 px-2 py-1 rounded border border-gray-600">Ctrl + P</kbd> to save. Ensure "Background graphics" is checked.</p>
+    </div>
+
+    <!-- The A4 Print Page -->
+    <div class="print-page flex flex-col justify-center p-12">
+        
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <img src="../public/attendo-icon.png" class="w-20 h-20 mx-auto mb-4 drop-shadow-2xl" alt="Attendo Logo" />
+            <h1 class="text-5xl font-black tracking-tighter text-white mb-2">ATTENDO</h1>
+            <p class="text-teal-400 font-bold text-sm uppercase tracking-[0.2em] mb-4">Official Licensing Plans</p>
+            <p class="text-gray-300 text-lg">Choose the license that fits your teaching workload</p>
+        </div>
+
+        <div class="z-10 w-full max-w-5xl mx-auto flex flex-col gap-6">
+            
+            <!-- Cards Grid (Plus - Pro - Ultimate) -->
+            <div class="grid grid-cols-3 gap-6 w-full">
+                
+                <!-- Plus -->
+                <div class="pricing-card flex flex-col">
+                    <h3 class="text-white font-bold text-2xl mb-1 uppercase tracking-wider">Plus</h3>
+                    <p class="text-gray-400 text-sm">Individual instructors</p>
+                    <p class="text-teal-400/80 text-xs font-bold uppercase tracking-widest mb-8 mt-1">1 User</p>
+                    
+                    <div class="mb-6 pb-6 border-b border-white/10">
+                        <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-black text-white">600</span>
+                            <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP</span>
+                        </div>
+                        <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 25% vs. Individual Monthly</p>
+                    </div>
+                    
+                    <div>
+                        <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-black text-teal-400">1,000</span>
+                            <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP</span>
+                        </div>
+                        <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 50% vs. Individual Monthly</p>
+                    </div>
+                </div>
+
+                <!-- Pro -->
+                <div class="pricing-card flex flex-col">
+                    <h3 class="text-white font-bold text-2xl mb-1 uppercase tracking-wider">Pro</h3>
+                    <p class="text-gray-400 text-sm">Teaching teams</p>
+                    <p class="text-teal-400/80 text-xs font-bold uppercase tracking-widest mb-8 mt-1">2–4 Users</p>
+                    
+                    <div class="mb-6 pb-6 border-b border-white/10">
+                        <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-black text-white">500</span>
+                            <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                        </div>
+                        <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 38% vs. Individual Monthly</p>
+                    </div>
+                    
+                    <div>
+                        <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-black text-teal-400">800</span>
+                            <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                        </div>
+                        <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 60% vs. Individual Monthly</p>
+                    </div>
+                </div>
+
+                <!-- Ultimate -->
+                <div class="pricing-card ultimate flex flex-col">
+                    <div class="ultimate-badge">MAXIMUM SAVING</div>
+                    <h3 class="text-white font-bold text-2xl mb-1 uppercase tracking-wider">Ultimate</h3>
+                    <p class="text-gray-400 text-sm">Departments</p>
+                    <p class="text-teal-400 font-bold text-xs uppercase tracking-widest mb-8 mt-1">5+ Users</p>
+                    
+                    <div class="mb-6 pb-6 border-b border-white/10">
+                        <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-black text-white">400</span>
+                            <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                        </div>
+                        <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 50% vs. Individual Monthly</p>
+                    </div>
+                    
+                    <div>
+                        <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-black text-teal-400">600</span>
+                            <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                        </div>
+                        <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 70% vs. Individual Monthly</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Occasional User Callout -->
+            <div class="bg-gradient-to-r from-teal-500/10 to-indigo-500/10 border border-white/10 rounded-2xl p-6 flex flex-row items-center justify-between shadow-xl mt-2">
+                <div>
+                    <h4 class="text-white font-bold text-lg uppercase tracking-widest">Teaching Occasionally?</h4>
+                    <p class="text-gray-400 text-sm mt-1">Get a 1-Month Individual License for just 200 EGP.</p>
+                </div>
+                <div class="flex items-baseline gap-1 bg-slate-900/50 py-3 px-6 rounded-xl border border-white/5">
+                    <span class="text-3xl font-black text-white">200</span>
+                    <span class="text-gray-400 text-sm font-bold">EGP</span>
+                </div>
+            </div>
+
+            <!-- Footer Text Block (No Box) -->
+            <div class="text-center mt-10 flex flex-col gap-3">
+                <p class="text-white/40 text-[10px] font-medium tracking-widest uppercase">
+                    Semester license: 4 months. &nbsp;&nbsp;|&nbsp;&nbsp; Academic Year license: 10 months PLUS 2 FREE months of summer access.
+                </p>
+                <p class="text-white/40 text-[10px] font-medium tracking-widest uppercase">
+                    All licenses include unlimited attendance sessions and full access to all features.
+                </p>
+            </div>
+        </div>
+        
+        <div class="w-full text-center z-10 border-t border-white/10 pt-6 mt-4 opacity-75">
+            <h2 class="text-lg font-black tracking-[0.2em] text-white mb-1">ATTENDO</h2>
+            <p class="text-teal-400 font-bold text-xs uppercase tracking-widest">Focus on Teaching, Attendo Handles the Rest</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Student Handout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; background-color: #f1f5f9; display: flex; justify-content: center; padding: 2rem; }
+        .page-container { width: 210mm; min-height: 297mm; background: white; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; overflow: hidden; border-radius: 12px; }
+        @media print {
+            body { background: none; padding: 0; }
+            .page-container { box-shadow: none; border-radius: 0; width: 100%; height: 100%; }
+            @page { size: A4; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container flex flex-col">
+        <!-- Hero Section -->
+        <div class="bg-teal-500 p-12 text-center text-white relative overflow-hidden">
+            <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-[-50px] left-[-50px] w-64 h-64 bg-slate-900/10 rounded-full blur-3xl"></div>
+            
+            <i data-lucide="graduation-cap" class="w-20 h-20 mx-auto mb-6 opacity-90"></i>
+            <h1 class="text-6xl font-black tracking-tight mb-4">Welcome to Class!</h1>
+            <p class="text-2xl font-bold text-teal-100">We are using Attendo for attendance this semester.</p>
+        </div>
+
+        <!-- Content -->
+        <div class="p-12 flex-1 flex flex-col justify-center">
+            
+            <div class="text-center mb-12">
+                <p class="text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                    To maximize our lecture time, we are replacing manual roll calls with an instant QR scanning system. <strong>Please follow these instructions to ensure you are marked present.</strong>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-slate-50 border-2 border-slate-100 p-8 rounded-2xl text-center">
+                    <div class="w-20 h-20 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="qr-code" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-800 mb-3">1. Get Your QR Code</h2>
+                    <p class="text-slate-600 text-sm">Save your official University ID QR code to your phone's photo gallery, or keep your physical ID card handy.</p>
+                </div>
+
+                <div class="bg-slate-50 border-2 border-slate-100 p-8 rounded-2xl text-center">
+                    <div class="w-20 h-20 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="sun" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-800 mb-3">2. Brightness Up</h2>
+                    <p class="text-slate-600 text-sm">If using your phone, maximize your screen brightness before scanning to ensure the camera reads it instantly.</p>
+                </div>
+
+                <div class="bg-slate-50 border-2 border-slate-100 p-8 rounded-2xl text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-teal-400"></div>
+                    <div class="w-20 h-20 bg-teal-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-teal-500/30">
+                        <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-xl font-black text-slate-800 mb-3">3. Scan & Go</h2>
+                    <p class="text-slate-600 text-sm">Hold your QR code up to the professor's laptop or mobile camera. You'll be marked present in 0.2 seconds!</p>
+                </div>
+
+            </div>
+
+            <div class="mt-16 bg-rose-50 border border-rose-100 rounded-xl p-6 flex gap-4 items-center">
+                <i data-lucide="alert-triangle" class="w-8 h-8 text-rose-500 shrink-0"></i>
+                <div>
+                    <h3 class="font-bold text-rose-900">Academic Integrity Notice</h3>
+                    <p class="text-sm text-rose-700 mt-1">Scanning a QR code belonging to an absent student constitutes academic fraud and will be subject to university disciplinary action.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bg-slate-900 text-slate-400 text-center p-6 text-sm font-bold">
+            Powered by Attendo | Developed by Dr. Belal El-Fakharany
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

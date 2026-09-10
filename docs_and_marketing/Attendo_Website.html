@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Focus on Teaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
+        .gradient-text { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-radius: 1.5rem; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; pointer-events: none; z-index: 0; }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Background Orbs -->
+    <div class="glow-orb w-[600px] h-[600px] bg-teal-500 top-[-200px] left-[-200px]"></div>
+    <div class="glow-orb w-[800px] h-[800px] bg-indigo-600 top-[20%] right-[-300px]"></div>
+    <div class="glow-orb w-[500px] h-[500px] bg-purple-500 bottom-[10%] left-[-100px]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card !rounded-none !border-x-0 !border-t-0 !bg-slate-900/80">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="../public/attendo-icon.png" class="w-10 h-10 drop-shadow-[0_0_10px_rgba(45,212,191,0.5)]" alt="Attendo Logo" />
+                <span class="text-2xl font-black tracking-tight">ATTENDO</span>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-300">
+                <a href="#features" class="hover:text-teal-400 transition-colors">Features</a>
+                <a href="#how-it-works" class="hover:text-teal-400 transition-colors">How it Works</a>
+                <a href="#pricing" class="hover:text-teal-400 transition-colors">Pricing</a>
+                <a href="#requirements" class="hover:text-teal-400 transition-colors">Requirements</a>
+            </div>
+            <a href="#contact" class="bg-teal-500 hover:bg-teal-400 text-slate-900 px-6 py-2.5 rounded-full font-bold transition-all shadow-[0_0_15px_rgba(20,184,166,0.3)]">
+                Get Your License
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-40 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+        <div data-aos="fade-down" class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-teal-400 text-xs font-bold uppercase tracking-widest mb-8">
+            <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+            Version 1.1 Now Available
+        </div>
+        <h1 data-aos="zoom-in" data-aos-delay="100" class="text-5xl md:text-7xl font-black tracking-tighter mb-6 leading-tight">
+            Focus on Teaching,<br />
+            <span class="bg-gradient-to-r from-teal-400 to-indigo-400 gradient-text">Attendo Handles the Rest.</span>
+        </h1>
+        <p data-aos="fade-up" data-aos-delay="200" class="text-lg text-gray-400 max-w-2xl mb-10 leading-relaxed">
+            A lightning-fast desktop ecosystem for modern professors. Scan QR codes via your smartphone camera, eliminate manual data entry, and export beautiful PDF reports—all 100% offline.
+        </p>
+        <div data-aos="fade-up" data-aos-delay="300" class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <a href="#pricing" class="bg-white hover:bg-gray-200 text-slate-900 px-8 py-4 rounded-xl font-black text-lg transition-all text-center flex items-center justify-center gap-2">
+                <i data-lucide="shopping-cart" class="w-5 h-5"></i> View Pricing Plans
+            </a>
+            <a href="#features" class="glass-card hover:bg-white/10 px-8 py-4 rounded-xl font-bold text-white text-lg transition-all text-center flex items-center justify-center gap-2">
+                <i data-lucide="arrow-down" class="w-5 h-5"></i> Explore Features
+            </a>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="py-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">Automate Your Classroom. <span class="text-indigo-400">Reclaim Your Time.</span></h2>
+                <!--<p class="text-gray-400 max-w-2xl mx-auto text-lg">A powerful, reliable attendance solution engineered specifically for modern academic workflows.</p>-->
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-teal-500/10 border border-teal-500/20 rounded-2xl flex items-center justify-center mb-6 text-teal-400">
+                        <i data-lucide="qr-code" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Lightning QR Scanner</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Instantly scan student ID cards using your laptop webcam or connect your smartphone camera via WiFi. Registers attendance in milliseconds with distinct audio cues.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mb-6 text-indigo-400">
+                        <i data-lucide="wifi-off" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">100% Offline & Local</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Your data stays strictly on your machine. No slow cloud databases, no monthly subscriptions. Only requires internet once every 21 days for license verification.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-purple-500/10 border border-purple-500/20 rounded-2xl flex items-center justify-center mb-6 text-purple-400">
+                        <i data-lucide="file-spreadsheet" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Beautiful PDF & Excel Exports</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Generate professional, university-ready attendance sheets with one click. Files are automatically saved into beautifully organized folders on your Desktop. Supports both single-session exports and full semester Master Reports.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div data-aos="fade-up" data-aos-delay="400" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center mb-6 text-amber-400">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Smart Analytics</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Instantly identify at-risk students who fall below required attendance thresholds. Visualize class attendance trends via interactive charts.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div data-aos="fade-up" data-aos-delay="500" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300 md:col-span-2">
+                    <div class="w-14 h-14 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center mb-6 text-rose-400">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Unified Entry Panel & QR Bundling</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Student forgot their QR card? Use the Entry Panel to rapidly log them manually. Need ID cards? Attendo automatically generates and bundles high-resolution QR codes for your entire class into a ZIP file ready for printing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">As Easy As 1-2-3</h2>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8 justify-center">
+                <div data-aos="fade-right" data-aos-delay="100" class="flex-1 text-center">
+                    <div class="w-16 h-16 bg-white text-slate-900 rounded-full flex items-center justify-center font-black text-2xl mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-bold mb-2">Import Your Roster</h3>
+                    <p class="text-gray-400 text-sm">Import your class list from Excel and Attendo will generate QR codes for them.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200" class="flex-1 text-center">
+                    <div class="w-16 h-16 bg-teal-500 text-slate-900 rounded-full flex items-center justify-center font-black text-2xl mx-auto mb-6 shadow-[0_0_20px_rgba(20,184,166,0.3)]">2</div>
+                    <h3 class="text-xl font-bold mb-2">Scan & Go</h3>
+                    <p class="text-gray-400 text-sm">Open the scanner and let students present their QR codes. The software logs them instantly, even in the background.</p>
+                </div>
+                <div data-aos="fade-left" data-aos-delay="300" class="flex-1 text-center">
+                    <div class="w-16 h-16 bg-indigo-500 text-white rounded-full flex items-center justify-center font-black text-2xl mx-auto mb-6 shadow-[0_0_20px_rgba(99,102,241,0.3)]">3</div>
+                    <h3 class="text-xl font-bold mb-2">Export Master Report</h3>
+                    <p class="text-gray-400 text-sm">At the end of the semester, click one button to generate a fully formatted PDF tracking every student's attendance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-24 px-6 relative z-10 bg-black/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">Less Than a Cup of Coffee per Month.</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-2">Invest in your peace of mind. Zero hidden fees, infinite value.</p>
+                <p class="text-teal-400 font-bold tracking-wide">Choose the license that fits your teaching workload.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Plus Plan -->
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-8 flex flex-col justify-between h-full">
+                        <div>
+                            <h3 class="text-white font-bold text-xl mb-1 uppercase tracking-wider">Plus</h3>
+                            <p class="text-gray-400 text-xs mb-8">For individual instructors</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-white">600</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 25% vs. Individual Monthly</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-teal-400">1,000</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 50% vs. Individual Monthly</p>
+                                <p class="text-teal-300 text-[10px] font-bold mt-2 bg-teal-500/10 inline-block px-2 py-1 rounded">+ 2 FREE months of summer access</p>
+                            </div>
+                            <a href="#contact" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl transition-all text-center block">Select Plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 h-full">
+                        <div>
+                            <h3 class="text-white font-bold text-xl mb-1 uppercase tracking-wider">Pro</h3>
+                            <p class="text-gray-400 text-xs mb-8">For teaching teams</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-white">500</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 38% vs. Individual Monthly</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-teal-400">800</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 60% vs. Individual Monthly</p>
+                                <p class="text-teal-300 text-[10px] font-bold mt-2 bg-teal-500/10 inline-block px-2 py-1 rounded">+ 2 FREE months of summer access</p>
+                            </div>
+                        </div>
+                        <a href="#contact" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl transition-all text-center mt-auto block">Select Pro</a>
+                    </div>
+                </div>
+
+                <!-- Ultimate Plan (Most Popular) -->
+                <div data-aos="zoom-in" data-aos-delay="300">
+                    <div class="glass-card p-8 flex flex-col justify-between border-teal-500/50 bg-teal-500/5 relative shadow-2xl shadow-teal-900/20 z-20 hover:-translate-y-2 transition-transform duration-300 h-full">
+                        <div class="absolute top-0 right-0 bg-teal-500 text-slate-900 text-[10px] font-black px-4 py-1.5 uppercase tracking-widest rounded-bl-xl rounded-tr-xl">Most saving</div>
+                        <div>
+                            <h3 class="text-white font-bold text-xl mb-1 uppercase tracking-wider">Ultimate</h3>
+                            <p class="text-teal-200/70 text-xs mb-8">For departments</p>
+                            
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-white">400</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 50% vs. Individual Monthly</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-teal-400">600</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 70% vs. Individual Monthly</p>
+                                <p class="text-teal-300 text-[10px] font-bold mt-2 bg-teal-500/20 inline-block px-2 py-1 rounded">+ 2 FREE months of summer access</p>
+                            </div>
+                        </div>
+                        <a href="#contact" class="w-full bg-teal-500 hover:bg-teal-400 text-slate-900 font-black py-3 rounded-xl transition-all text-center shadow-[0_0_15px_rgba(20,184,166,0.3)] mt-auto block">Select Ultimate</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Occasional User Callout -->
+            <div data-aos="fade-up" class="max-w-4xl mx-auto mt-12 bg-gradient-to-r from-teal-500/10 to-indigo-500/10 border border-teal-500/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between shadow-2xl shadow-teal-900/10 gap-6">
+                <div class="text-center md:text-left">
+                    <h4 class="text-white font-bold text-xl uppercase tracking-widest">Teaching Occasionally?</h4>
+                    <p class="text-gray-400 text-sm mt-1">Get a 1-Month License for just 200 EGP.</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-baseline gap-1 bg-slate-900/50 py-3 px-6 rounded-xl border border-white/5">
+                        <span class="text-3xl font-black text-white">200</span>
+                        <span class="text-gray-400 text-sm font-bold">EGP</span>
+                    </div>
+                    <a href="#contact" class="bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all whitespace-nowrap hidden md:block">Get 1-Month License</a>
+                </div>
+            </div>
+
+            <!-- Footer Text Block (No Box) -->
+            <div data-aos="fade-up" class="text-center mt-12 flex flex-col gap-3">
+                <p class="text-white/40 text-[10px] md:text-xs font-medium tracking-widest uppercase">
+                    Semester license: 4 months. &nbsp;&nbsp;|&nbsp;&nbsp; Academic Year license: 10 months, including 2 FREE months of summer access.
+                </p>
+                <p class="text-white/40 text-[10px] md:text-xs font-medium tracking-widest uppercase mt-2">
+                    All licenses include unlimited attendance sessions and full access to all features.
+                </p>
+            </div>
+
+            <!-- Free Trial Block -->
+            <div data-aos="fade-up" class="max-w-3xl mx-auto mt-16">
+                <div class="glass-card p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-indigo-500/30 bg-indigo-500/5 relative overflow-hidden">
+                    <div class="absolute w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-[60px] top-0 left-0 pointer-events-none"></div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-2xl font-black text-white mb-2">14-Day Free Trial</h3>
+                        <p class="text-gray-300 text-sm">Test the full features for 14 days.</p>
+                    </div>
+                    <a href="#contact" class="relative z-10 whitespace-nowrap bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">Request Trial Key</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- System Requirements -->
+    <section id="requirements" class="py-24 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 data-aos="fade-up" class="text-4xl font-black mb-12">System Requirements</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="monitor" class="w-8 h-8 text-teal-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">OS</h4>
+                    <p class="text-xs text-gray-400">Windows 10 or 11<br />(64-bit)</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="cpu" class="w-8 h-8 text-indigo-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Memory</h4>
+                    <p class="text-xs text-gray-400">4GB RAM Minimum<br />(8GB Recommended)</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="camera" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Camera</h4>
+                    <p class="text-xs text-gray-400">Built-in Webcam or<br />Smartphone (via WiFi)</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="400" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="hard-drive" class="w-8 h-8 text-amber-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Storage</h4>
+                    <p class="text-xs text-gray-400">100MB Free Space</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section id="contact" class="py-24 px-6 relative z-10 border-t border-white/5">
+        <div data-aos="zoom-in" class="max-w-3xl mx-auto glass-card p-12 text-center border-teal-500/30 bg-teal-500/5 relative overflow-hidden">
+            <div class="absolute w-[400px] h-[400px] bg-teal-500/20 rounded-full blur-[80px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            
+            <h2 class="text-4xl font-black mb-4 relative z-10">Ready to Upgrade Your Classroom?</h2>
+            <p class="text-gray-300 mb-8 relative z-10">
+                To purchase a license or request a trial, contact Dr. Belal El-Fakharany. You will receive a secure download link for the Attendo Installer alongside your unique activation token.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center relative z-10">
+                <a href="https://wa.me/201014503937" target="_blank" class="bg-green-500 hover:bg-green-400 text-slate-900 px-8 py-4 rounded-xl font-black text-lg transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(34,197,94,0.3)] w-full sm:w-auto">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> WhatsApp Us
+                </a>
+                <div class="glass-card px-8 py-4 rounded-xl font-mono text-gray-300 flex items-center justify-center gap-3 w-full sm:w-auto border-white/10 bg-black/40">
+                    <i data-lucide="phone" class="w-4 h-4 text-gray-500"></i> +20 101 450 3937
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-slate-950 py-12 px-6 text-center relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <img src="../public/attendo-icon.png" class="w-10 h-10 mb-4 opacity-50 grayscale" alt="Attendo Logo" />
+            <h3 class="text-xl font-black mb-2 tracking-widest text-gray-400">ATTENDO</h3>
+            <p class="text-gray-500 text-sm mb-8">Focus on Teaching, Attendo Handles the Rest.</p>
+            
+            <p class="text-gray-600 text-xs">
+                &copy; 2026 Developed by Dr. Belal El-Fakharany. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        // Initialize AOS Animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 600,
+            easing: 'ease-out-cubic',
+        });
+    </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ import {
   Volume2, VolumeX, QrCode, Save, Settings, Play, Pause, Minimize, Maximize, 
   OctagonX, Smartphone, Laptop, Radio, Keyboard, Trash2, Archive, Search, 
   Upload, Inbox, RefreshCw, Clock, Database, CloudUpload, FolderOpen, 
-  PieChart as PieChartIcon, IdCard, CheckCircle, X, MessageCircle, ShieldAlert, 
+  PieChart as PieChartIcon, IdCard, CheckCircle, X, MessageCircle, ShieldAlert, Shield,
   Unlock, Rocket, Activity, Package, Hourglass, Undo2, UserPlus, Dices, ListChecks, Calendar, Flag, FileText, FileSpreadsheet, Plus
 } from 'lucide-react';
 
@@ -41,7 +41,10 @@ const TitleBar = () => (
 );
 
 function App() {
-  const [licenseStatus, setLicenseStatus] = useState<'checking' | 'valid' | 'unlicensed' | 'expired' | 'tampered' | 'invalid'>('checking');
+  const [licenseStatus, setLicenseStatus] = useState<'checking' | 'valid' | 'unlicensed' | 'expired' | 'tampered' | 'invalid' | 'REVOKED' | 'SYNC_REQUIRED'>('checking');
+  const [licenseWarning, setLicenseWarning] = useState<{show: boolean, daysLeft: number}>({show: false, daysLeft: 0});
+  const [licenseDetails, setLicenseDetails] = useState<{plan: string, duration: string | number, exp: number}>({plan: 'plus', duration: 'Academic Year (12 Months)', exp: 0});
+  const [showWelcome, setShowWelcome] = useState(false);
   const [hardwareId, setHardwareId] = useState('');
   const [licenseInput, setLicenseInput] = useState('');
   const [licenseError, setLicenseError] = useState('');
@@ -437,6 +440,18 @@ function App() {
         return; 
       }
       setLicenseStatus('valid');
+      if (licRes.plan) setLicenseDetails({ plan: licRes.plan, duration: licRes.duration || 'Academic Year (12 Months)', exp: licRes.exp });
+
+      if (localStorage.getItem('justActivated') === 'true') {
+        localStorage.removeItem('justActivated');
+        setShowWelcome(true);
+      }
+
+      if (licRes.warning) {
+        setLicenseWarning({ show: true, daysLeft: licRes.daysLeft });
+      } else {
+        setLicenseWarning({ show: false, daysLeft: 0 });
+      }
       // @ts-ignore
       const setupRes = await window.api.getGlobalSettings();
       if (setupRes.success && setupRes.data && setupRes.data.setup_complete === 'true') {
@@ -452,8 +467,32 @@ function App() {
   const handleActivate = async () => {
     // @ts-ignore
     const res = await window.api.activateLicense(licenseInput.trim());
-    if (res.success) window.location.reload(); 
-    else setLicenseError(res.msg);
+    if (res.success) {
+      let p = 'plus', d: string | number = 'Academic Year (12 Months)', e = 0;
+      try {
+         const payloadBase64 = licenseInput.trim().split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+         const decoded = JSON.parse(atob(payloadBase64));
+         if (decoded.plan) p = decoded.plan;
+         if (decoded.duration) d = decoded.duration;
+         if (decoded.exp) e = decoded.exp;
+      } catch(ex) {}
+      
+      setLicenseDetails({ plan: p, duration: d, exp: e });
+      setLicenseStatus('valid');
+      setShowWelcome(true);
+      
+      // Also ensure setup complete status is ready
+      // @ts-ignore
+      const setupRes = await window.api.getGlobalSettings();
+      if (setupRes.success && setupRes.data && setupRes.data.setup_complete === 'true') {
+        setGlobalSettings(setupRes.data);
+        setIsSetupComplete(true);
+      } else {
+        setIsSetupComplete(false);
+      }
+    } else {
+      setLicenseError(res.msg);
+    }
   };
 
   useEffect(() => {
@@ -1675,6 +1714,51 @@ function App() {
     );
   }
 
+  if (licenseStatus === 'REVOKED') {
+    return (
+      <div className="bg-slate-900 w-screen h-screen flex flex-col font-sans">
+        <TitleBar />
+        <div className="flex-1 flex items-center justify-center p-4">
+        <div className="bg-rose-500/10 border border-rose-500/50 p-8 rounded-3xl max-w-lg text-center shadow-[0_0_50px_rgba(244,63,94,0.2)] flex flex-col items-center">
+          <OctagonX className="w-16 h-16 text-rose-500 mb-4" />
+          <h1 className="text-3xl font-black text-rose-400 mb-2">License Revoked</h1>
+          <p className="text-gray-300 leading-relaxed mb-6">This license has been permanently revoked by the administrator. Your local key has been invalidated.</p>
+          <a 
+              href={`https://wa.me/201014503937?text=${encodeURIComponent(`Hello Dr. Belal, my Attendo license was revoked. Can you please assist me?`)}`}
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center justify-center gap-2 w-full bg-[#25D366]/10 hover:bg-[#25D366]/20 border border-[#25D366]/30 hover:border-[#25D366]/50 text-[#25D366] transition-all px-4 py-3 rounded-xl group cursor-pointer"
+            >
+              <MessageCircle className="w-5 h-5 grayscale group-hover:grayscale-0 transition-all" />
+              <span className="text-sm font-bold tracking-wide">Contact Administrator</span>
+            </a>
+        </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (licenseStatus === 'SYNC_REQUIRED') {
+    return (
+      <div className="bg-slate-900 w-screen h-screen flex flex-col font-sans">
+        <TitleBar />
+        <div className="flex-1 flex items-center justify-center p-4">
+        <div className="bg-amber-500/10 border border-amber-500/50 p-8 rounded-3xl max-w-lg text-center shadow-[0_0_50px_rgba(245,158,11,0.2)] flex flex-col items-center">
+          <CloudUpload className="w-16 h-16 text-amber-500 mb-4" />
+          <h1 className="text-3xl font-black text-amber-400 mb-2">Offline Limit Reached</h1>
+          <p className="text-gray-300 leading-relaxed mb-6">You have been using Attendo offline for over 21 days. To continue using the software, please connect to the internet for a few seconds to sync your license.</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-black py-4 rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all flex items-center justify-center gap-2"
+          >
+            Retry Connection <RefreshCw className="w-5 h-5" />
+          </button>
+        </div>
+        </div>
+      </div>
+    );
+  }
+
   if (licenseStatus !== 'valid') {
     return (
       <div className="bg-slate-900 w-screen h-screen flex flex-col font-sans">
@@ -1721,6 +1805,37 @@ function App() {
     );
   }
 
+  const welcomeModalNode = showWelcome ? (
+    <div className="fixed inset-0 z-[400] flex items-center justify-center bg-[#020617]/95 backdrop-blur-md p-4 animate-fade-in" onClick={() => setShowWelcome(false)}>
+           <div className="bg-slate-900 border border-teal-500/30 rounded-3xl w-full max-w-lg p-8 flex flex-col items-center text-center shadow-[0_0_50px_rgba(20,184,166,0.3)] relative overflow-hidden" onClick={e => e.stopPropagation()}>
+           <div className="w-20 h-20 bg-teal-500/10 border border-teal-500/20 rounded-full flex items-center justify-center mb-6 mt-2 shadow-[0_0_20px_rgba(20,184,166,0.2)]">
+             <img src="./attendo-icon.png" alt="Attendo Logo" className="w-10 h-10 drop-shadow-[0_0_10px_rgba(20,184,166,0.5)]" />
+           </div>
+           <h2 className="text-3xl font-black text-white mb-2">Welcome to Attendo!</h2>
+           <p className="text-gray-400 mb-8">Your license has been successfully activated.</p>
+           
+           <div className="w-full bg-black/40 border border-white/5 rounded-2xl p-6 mb-8 text-left">
+              <div className="flex justify-between items-center mb-4">
+                 <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Plan Type</span>
+                 <span className="text-white font-bold capitalize flex items-center gap-2"><Shield className="w-4 h-4 text-teal-400" /> {licenseDetails.plan} License</span>
+              </div>
+              <div className="flex justify-between items-center mb-4">
+                 <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Duration</span>
+                 <span className="text-white font-bold capitalize flex items-center gap-2"><Clock className="w-4 h-4 text-indigo-400" /> {typeof licenseDetails.duration === 'number' ? `${licenseDetails.duration} Months` : licenseDetails.duration}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                 <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Expires On</span>
+                 <span className="text-teal-400 font-bold">{new Date(licenseDetails.exp * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+           </div>
+
+           <button onClick={() => setShowWelcome(false)} className="w-full bg-teal-500 hover:bg-teal-400 text-slate-900 font-black py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(20,184,166,0.3)] text-lg">
+             Get Started
+           </button>
+       </div>
+    </div>
+  ) : null;
+
   if (isSetupComplete === null) {
     return (
       <div className="bg-slate-900 w-screen h-screen flex flex-col font-sans">
@@ -1734,15 +1849,15 @@ function App() {
     return (
       <div className="bg-slate-900 w-screen h-screen flex flex-col font-sans relative overflow-hidden">
         <TitleBar />
-        <div className="flex-1 flex items-center justify-center p-4 relative w-full h-full overflow-y-auto">
+        <div className="flex-1 flex items-center justify-center p-4 relative w-full overflow-y-auto">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-[120px] pointer-events-none"></div>
         
         {/* Widened the container to max-w-3xl to comfortably fit two columns */}
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-3xl relative z-10 animate-fade-in">
-          <h1 className="text-3xl md:text-4xl font-black text-teal-400 mb-2">Welcome to Attendo</h1>
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-3xl shadow-2xl w-full max-w-3xl relative z-10 animate-fade-in">
+          <h1 className="text-3xl font-black text-teal-400 mb-2">Welcome to Attendo</h1>
           <p className="text-gray-400 mb-6 text-sm">Let's configure your environment. This information will be used to automatically name your export files and format your reports.</p>
           
-          <div className="space-y-5">
+          <div className="space-y-4">
             
             {/* 🚀 Row 1: Instructor & Subject */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -1854,6 +1969,7 @@ function App() {
           </div>
         </div>
         </div>
+        {welcomeModalNode}
       </div>
     );
   }
@@ -1925,6 +2041,37 @@ function App() {
               <p className="text-xs text-gray-600 font-semibold uppercase tracking-widest group-hover:text-teal-400/70 transition-all">Add / Remove</p>
             </button>
           </div>
+          
+
+          {Math.ceil((licenseDetails.exp * 1000 - Date.now()) / 86400000) <= 30 && (
+            <div className="mt-16 bg-black/30 border border-amber-500/20 p-6 rounded-3xl max-w-3xl mx-auto shadow-2xl relative overflow-hidden group cursor-default">
+              <div className="absolute inset-0 bg-amber-500/5 group-hover:bg-amber-500/10 transition-colors pointer-events-none"></div>
+              <h3 className="text-lg font-black text-amber-400 mb-6 flex items-center justify-center gap-2">
+                <ShieldAlert className="w-5 h-5" /> License Expiring Soon
+              </h3>
+              <div className="grid grid-cols-4 gap-6 text-left relative z-10">
+                <div>
+                  <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Plan Type</p>
+                  <p className="text-white font-bold capitalize">{licenseDetails.plan} License</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Status</p>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-400 text-xs font-bold border border-amber-500/30">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Action Required
+                  </span>
+                </div>
+                <div>
+                  <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Expiration Date</p>
+                  <p className="text-gray-300 text-sm font-semibold">{new Date(licenseDetails.exp * 1000).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Days Remaining</p>
+                  <p className="text-amber-400 text-sm font-black">{Math.max(0, Math.ceil((licenseDetails.exp * 1000 - Date.now()) / 86400000))} days left</p>
+                </div>
+              </div>
+            </div>
+          )}
+          
         </div>
 
         {/* 🚀 NEW: Manage Workspaces Modal */}
@@ -2070,6 +2217,7 @@ function App() {
           </div>
         )}
         </div>
+        {welcomeModalNode}
       </div>
     );
   }
@@ -2252,6 +2400,15 @@ function App() {
       <main className="flex-1 h-full p-4 lg:p-6 overflow-hidden relative">
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl h-full rounded-3xl overflow-hidden relative p-6 lg:p-8 flex flex-col">
           
+          {licenseWarning.show && (
+            <div className="bg-amber-500/20 border border-amber-500/50 rounded-xl p-4 mb-6 flex items-center gap-4 animate-pulse">
+              <ShieldAlert className="w-6 h-6 text-amber-500 shrink-0" />
+              <div>
+                <h3 className="text-amber-400 font-bold text-sm">License Sync Required</h3>
+                <p className="text-amber-200/80 text-xs mt-1">Please connect to the internet soon. Your offline access will expire in {licenseWarning.daysLeft} days.</p>
+              </div>
+            </div>
+          )}
           {activeTab === 'scanner' && (
             <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 h-full overflow-hidden">
               <div className="lg:col-span-7 flex flex-col overflow-y-auto h-full pr-2 lg:pr-4 pb-8" style={{ scrollbarWidth: 'thin', scrollbarColor: '#475569 transparent' }}>
@@ -3534,7 +3691,16 @@ function App() {
             
             <img src="./attendo-icon.png" alt="Attendo Logo" className="w-20 h-20 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(20,184,166,0.3)]" />
             <h2 className="text-3xl font-black text-white tracking-tight mb-1">Attendo</h2>
-            <p className="text-teal-400 text-[10px] font-bold uppercase tracking-widest mb-8">Version 1.1.0</p>
+            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Version 1.1.0</p>
+            
+            <div className="flex justify-center gap-2 mb-8">
+              <span className="bg-teal-500/10 border border-teal-500/20 text-teal-400 text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 uppercase tracking-widest shadow-[0_0_10px_rgba(20,184,166,0.2)]">
+                <Shield className="w-3 h-3" /> {licenseDetails.plan}
+              </span>
+              <span className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 uppercase tracking-widest shadow-[0_0_10px_rgba(99,102,241,0.2)]">
+                <Clock className="w-3 h-3" /> {typeof licenseDetails.duration === 'number' ? `${licenseDetails.duration}-Month` : licenseDetails.duration.toString().replace(' Months', '-Month').replace(' Days', '-Day')}
+              </span>
+            </div>
             
             <div className="bg-white/5 rounded-2xl p-6 border border-white/5 mb-6 shadow-inner">
               <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-3">Developed By</p>
@@ -3558,6 +3724,8 @@ function App() {
           </div>
         </div>
       )}
+
+
       
       {/* Global Command Palette Overlay */}
       {isCommandPaletteOpen && (
@@ -4107,13 +4275,13 @@ function App() {
       {/* 🚀 NEW: Global Settings Modal (Report Branding) */}
       {isSettingsOpen && (
         <div className="fixed inset-0 bg-[#020617]/95 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-slate-900 border border-white/10 rounded-3xl w-full max-w-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-            <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5">
+          <div className="bg-slate-900 border border-white/10 rounded-3xl w-full max-w-xl flex flex-col max-h-[90vh] shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div className="flex justify-between items-center p-6 border-b border-white/10 bg-white/5 shrink-0">
               <h2 className="text-2xl font-black text-teal-400 flex items-center gap-3"><Settings className="w-6 h-6" /> Global Settings</h2>
               <button onClick={() => setIsSettingsOpen(false)} className="text-gray-400 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
             </div>
             
-            <div className="p-8">
+            <div className="p-8 overflow-y-auto" style={{ scrollbarWidth: 'thin', scrollbarColor: '#475569 transparent' }}>
               <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                 <FileText className="w-5 h-5 text-indigo-400" /> Report Branding (PDF)
               </h3>
@@ -4245,6 +4413,7 @@ function App() {
 
       </div>
 
+      {welcomeModalNode}
     </div>
   );
 }
