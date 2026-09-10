@@ -23,8 +23,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Android SDK
+            - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+
+      - name: Setup NDK Environment
+        run: |
+          echo "NDK_HOME=$ANDROID_NDK_LATEST_HOME" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$ANDROID_NDK_LATEST_HOME" >> $GITHUB_ENV
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -56,6 +61,7 @@ jobs:
         with:
           name: Attendo-Android-APK
           path: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
+
 
 
 
