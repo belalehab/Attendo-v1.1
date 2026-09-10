@@ -47,7 +47,7 @@ jobs:
       - name: Build Android APK
         run: |
           npx tauri icon public/attendo-icon.png
-          npx tauri android build --debug --apk --target aarch64-linux-android
+          npx tauri android build --debug --apk --target aarch64
         env:
           CI: true
 
@@ -56,6 +56,7 @@ jobs:
         with:
           name: Attendo-Android-APK
           path: src-tauri/gen/android/app/build/outputs/apk/**/*.apk
+
 
 
 
