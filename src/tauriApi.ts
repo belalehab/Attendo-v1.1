@@ -289,8 +289,15 @@ export async function initTauriApi() {
         if (filterType === 'Section') likePattern = `[Grade ${workspace}]% - Section%`;
 
         const sessions: any[] = await db.select("SELECT DISTINCT session_name FROM attendance WHERE session_name LIKE $1 AND is_archived = 0 ORDER BY timestamp ASC", [likePattern]);
-        const sessionNames = sessions.map(s => s.session_name);
-        const totalSessionsCount = sessionNames.length;
+        const logicalWeeksMap = new Map<string, string[]>();
+sessions.forEach(s => {
+  const parts = s.session_name.split(" - ");
+  const baseName = parts.slice(0, -1).join(" - ");
+  if (!logicalWeeksMap.has(baseName)) logicalWeeksMap.set(baseName, []);
+  logicalWeeksMap.get(baseName)!.push(s.session_name);
+});
+const logicalWeeks = Array.from(logicalWeeksMap.keys());
+const totalSessionsCount = logicalWeeks.length;
 
         const students: any[] = await db.select("SELECT * FROM students WHERE grade = $1 AND is_deleted = 0 ORDER BY name ASC", [workspace]);
         const attendanceRecords: any[] = await db.select("SELECT national_id, session_name, is_excused FROM attendance WHERE session_name LIKE $1 AND is_archived = 0", [likePattern]);
@@ -309,8 +316,8 @@ export async function initTauriApi() {
           { header: 'Status', key: 'status', width: 12 }
         ];
 
-        sessionNames.forEach((sessionName, index) => {
-           const shortName = sessionName.replace(`[Grade ${workspace}] `, '');
+                logicalWeeks.forEach((logicalWeek, index) => {
+           const shortName = logicalWeek.replace(`[Grade ${workspace}] `, '');
            columns.push({ header: shortName, key: `session_${index}`, width: 18 });
         });
         sheet.columns = columns;
@@ -325,20 +332,23 @@ export async function initTauriApi() {
             grade: student.grade,
           };
 
-          sessionNames.forEach((sessionName, index) => {
-             const record = attendanceRecords.find(a => 
+                    logicalWeeks.forEach((logicalWeek, index) => {
+             const groupSessions = logicalWeeksMap.get(logicalWeek);
+             const records = attendanceRecords.filter(a => 
                a.national_id === student.national_id && 
-               a.session_name === sessionName
+               (groupSessions || []).includes(a.session_name)
              );
 
-             let cellValue = '❌ Absent';
-             if (record) {
-               if (record.is_excused === 0) {
+             let cellValue = '? Absent';
+             if (records.length > 0) {
+               const isPresent = records.some(r => r.is_excused === 0);
+               const isExcused = records.some(r => r.is_excused === 1) && !isPresent;
+               if (isPresent) {
                  attendedCount++;
-                 cellValue = '✅ Present';
-               } else if (record.is_excused === 1) {
+                 cellValue = '? Present';
+               } else if (isExcused) {
                  excusedCount++;
-                 cellValue = '📘 Excused';
+                 cellValue = '??? Excused';
                }
              }
              rowData[`session_${index}`] = cellValue;
@@ -755,7 +765,15 @@ export async function initTauriApi() {
         const allAttendance: any[] = await db.select(`SELECT national_id, session_name, is_excused, bonus_points FROM attendance WHERE session_name LIKE $1 AND is_archived = $2`, [likePattern, archiveFilter]);
         const sessions: any[] = await db.select("SELECT DISTINCT session_name FROM attendance WHERE session_name LIKE $1 AND is_archived = $2 ORDER BY timestamp ASC", [likePattern, archiveFilter]);
         
-        const totalSessionsCount = sessions.length;
+        const logicalWeeksMap = new Map<string, string[]>();
+          sessions.forEach(s => {
+            const parts = s.session_name.split(" - ");
+            const baseName = parts.slice(0, -1).join(" - ");
+            if (!logicalWeeksMap.has(baseName)) logicalWeeksMap.set(baseName, []);
+            logicalWeeksMap.get(baseName)!.push(s.session_name);
+          });
+          const logicalWeeks = Array.from(logicalWeeksMap.keys());
+          const totalSessionsCount = logicalWeeks.length;
 
         const students: any[] = await db.select("SELECT * FROM students WHERE grade = $1 AND is_deleted = 0 ORDER BY name ASC", [workspace]);
 
@@ -764,21 +782,28 @@ export async function initTauriApi() {
           let excused = 0;
           let bonuses = 0;
 
-          const sparkline = sessions.map(session => {
-            const record = allAttendance.find(a => 
+                    const sparkline = logicalWeeks.map(baseName => {
+            const groupSessions = logicalWeeksMap.get(baseName);
+            const records = allAttendance.filter(a => 
               a.national_id === student.national_id && 
-              a.session_name === session.session_name
+              (groupSessions || []).includes(a.session_name)
             );
             
-            if (!record) return 'absent';
-            if (record.bonus_points > 0) bonuses += record.bonus_points;
+            if (records.length === 0) return 'absent';
+            
+            records.forEach(r => {
+              if (r.bonus_points > 0) bonuses += r.bonus_points;
+            });
 
-            if (record.is_excused === 1) {
+            const isPresent = records.some(r => r.is_excused === 0);
+            const isExcused = records.some(r => r.is_excused === 1) && !isPresent;
+
+            if (isExcused) {
               excused++;
               return 'excused';
             } else {
               attended++;
-              return record.bonus_points > 0 ? 'bonus' : 'present';
+              return records.some(r => r.bonus_points > 0) ? 'bonus' : 'present';
             }
           });
 
@@ -843,8 +868,15 @@ export async function initTauriApi() {
         if (filterType === 'Section') likePattern = `[Grade ${workspace}]% - Section%`;
 
         const sessions: any[] = await db.select("SELECT DISTINCT session_name FROM attendance WHERE session_name LIKE $1 AND is_archived = 0 ORDER BY timestamp ASC", [likePattern]);
-        const sessionNames = sessions.map(s => s.session_name);
-        const totalSessionsCount = sessionNames.length;
+        const logicalWeeksMap = new Map<string, string[]>();
+sessions.forEach(s => {
+  const parts = s.session_name.split(" - ");
+  const baseName = parts.slice(0, -1).join(" - ");
+  if (!logicalWeeksMap.has(baseName)) logicalWeeksMap.set(baseName, []);
+  logicalWeeksMap.get(baseName)!.push(s.session_name);
+});
+const logicalWeeks = Array.from(logicalWeeksMap.keys());
+const totalSessionsCount = logicalWeeks.length;
 
         const students: any[] = await db.select("SELECT * FROM students WHERE grade = $1 AND is_deleted = 0 ORDER BY name ASC", [workspace]);
           const attendanceRecords: any[] = await db.select("SELECT national_id, session_name, is_excused FROM attendance WHERE session_name LIKE $1 AND is_archived = 0", [likePattern]);
@@ -932,7 +964,7 @@ export async function initTauriApi() {
           return match ? match[0] : s.replace(`[Grade ${workspace}] `, '');
         };
 
-        let headRow = ['Name', 'Total', 'Absent', 'Status', ...sessionNames.map(cleanSessionName)];
+                let headRow = ['Name', 'Total', 'Absent', 'Status', ...logicalWeeks.map(cleanSessionName)];
         if (isArabic) {
           headRow = headRow.reverse();
         }
@@ -943,10 +975,10 @@ export async function initTauriApi() {
         let lectureSafe = 0; let lectureAtRisk = 0;
         let sectionSafe = 0; let sectionAtRisk = 0;
 
-        const totalLectureSessions = sessionNames.filter(n => n.includes(' - Lecture')).length;
-        const totalSectionSessions = sessionNames.filter(n => n.includes(' - Section')).length;
+        const totalLectureSessions = logicalWeeks.filter(n => n.includes(' - Lecture')).length;
+        const totalSectionSessions = logicalWeeks.filter(n => n.includes(' - Section')).length;
 
-        let sessionTurnout = sessionNames.map(name => ({ name: cleanSessionName(name), originalName: name, attendees: 0 }));
+                let sessionTurnout = logicalWeeks.map(name => ({ name: cleanSessionName(name), originalName: name, attendees: 0 }));
 
         const body = students.map((student: any) => {
           let attendedCount = 0;
@@ -954,22 +986,30 @@ export async function initTauriApi() {
           let lectureAttended = 0; let lectureExcused = 0;
           let sectionAttended = 0; let sectionExcused = 0;
           
-          const sessionStatuses = sessionNames.map((sessionName, index) => {
-            const isLecture = sessionName.includes(' - Lecture');
-            const record = attendanceRecords.find(a => 
+          const sessionStatuses = logicalWeeks.map((logicalWeek, index) => {
+            const isLecture = logicalWeek.includes(' - Lecture');
+            const groupSessions = logicalWeeksMap.get(logicalWeek);
+            const records = attendanceRecords.filter(a => 
               a.national_id === student.national_id && 
-              a.session_name === sessionName
+              (groupSessions || []).includes(a.session_name)
             );
-            if (!record) return 'X';
-            if (record.is_excused === 1) {
+
+            if (records.length === 0) return 'X';
+            
+            const isPresent = records.some(r => r.is_excused === 0);
+            const isExcused = records.some(r => r.is_excused === 1) && !isPresent;
+
+            if (isExcused) {
               excusedCount++;
               if (isLecture) lectureExcused++; else sectionExcused++;
               return 'E';
+            } else if (isPresent) {
+              attendedCount++;
+              if (isLecture) lectureAttended++; else sectionAttended++;
+              sessionTurnout[index].attendees++;
+              return 'P';
             }
-            attendedCount++;
-            if (isLecture) lectureAttended++; else sectionAttended++;
-            sessionTurnout[index].attendees++;
-            return 'P';
+            return 'X';
           });
 
           const absentCount = Math.max(0, totalSessionsCount - (attendedCount + excusedCount));
@@ -1515,3 +1555,5 @@ export async function initTauriApi() {
     }
   };
 }
+
+
