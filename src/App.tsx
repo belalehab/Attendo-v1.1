@@ -1317,18 +1317,29 @@ function App() {
     e.target.value = ''; 
   };
 
-  const processFile = (file: File) => {
+        const processFile = async (file: File) => {
     const toastId = toast.loading('Parsing CSV file...');
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: async (results) => {
-        const validStudents: any[] = [];
-        
-        results.data.forEach((row: any) => {
-          const rawName = row['Name'] || row['name'] || row['الاسم'] || '';
-          const rawId = row['ID'] || row['id'] || row['الرقم القومي'] || '';
-          const rawGrade = row['Grade'] || row['grade'] || row['الفرقة'] || '';
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      let fileText = '';
+      try {
+        const decoder = new TextDecoder('utf-8', { fatal: true });
+        fileText = decoder.decode(arrayBuffer);
+      } catch (e) {
+        const decoder = new TextDecoder('windows-1256');
+        fileText = decoder.decode(arrayBuffer);
+      }
+
+      Papa.parse(fileText, {
+        header: true,
+        skipEmptyLines: true,
+        complete: async (results) => {
+          const validStudents: any[] = [];
+          
+          results.data.forEach((row: any) => {
+            const rawName = row['Name'] || row['name'] || row['\u0627\u0644\u0627\u0633\u0645'] || row['O U,O O3U.'] || row['O U,O O3U.'] || '';
+            const rawId = row['ID'] || row['id'] || row['\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0642\u0648\u0645\u064a'] || row['O U,OU,U. O U,U,U^U.US'] || row['O U,OU,U. O U,U,U^U.US'] || '';
+            const rawGrade = row['Grade'] || row['grade'] || row['\u0627\u0644\u0641\u0631\u0642\u0629'] || row['O U,U?OU,Oc'] || row['O U,U?OU,Oc'] || '';
           
           let cleanId = String(rawId).trim();
           // Strip out Excel text formatting artifacts like ="1234" or '1234
@@ -1358,6 +1369,9 @@ function App() {
         }
       }
     });
+  } catch (err: any) {
+    toast.error("File error: " + err, { id: toastId });
+  }
   };
 
   const handleManualAddStudent = async (e: React.FormEvent) => {
@@ -4419,3 +4433,5 @@ function App() {
 }
 
 export default App;
+
+
