@@ -1246,14 +1246,19 @@ function App() {
     if (activeTab === 'analytics') fetchAnalytics();
   };
 
-  const handleGenerateCards = async () => {
+  const handleGenerateCards = async (specificIds?: string[] | any) => {
     setIsGenerating(true);
-    const toastId = toast.loading('Generating QR image bundle...');
+    const targetIds = Array.isArray(specificIds) && specificIds.length > 0 ? specificIds : selectedStudents;
+    const isPartial = targetIds.length > 0;
+    const toastId = toast.loading(isPartial ? `Generating ${targetIds.length} QR images...` : 'Generating QR image bundle...');
     // @ts-ignore
     const response = await window.api.getRosterForPrint();
     
     if (response.success && response.data.length > 0) {
-      const gradeStudents = response.data.filter((s: any) => s.grade === activeWorkspace);
+      let gradeStudents = response.data.filter((s: any) => s.grade === activeWorkspace);
+      if (isPartial) {
+         gradeStudents = gradeStudents.filter((s: any) => targetIds.includes(s.national_id || s.nationalId));
+      }
       
       if (gradeStudents.length === 0) {
          toast.error(`No students found for Grade ${activeWorkspace}.`, { id: toastId });
@@ -1267,7 +1272,7 @@ function App() {
         try {
           // 🚀 FIXED: Clean instantiation without the 'any' hack
           const zip = new JSZip();
-          const folder = zip.folder(`Attendo_Grade_${activeWorkspace}_QRs`);
+          const folder = zip.folder(isPartial ? `Attendo_Partial_QRs_${Date.now()}` : `Attendo_Grade_${activeWorkspace}_QRs`);
           const elements = document.querySelectorAll('.qr-export-card');
 
           for (let i = 0; i < elements.length; i++) {
@@ -1290,7 +1295,7 @@ function App() {
           const zipBlob = await zip.generateAsync({ type: 'blob' });
           const arrayBuffer = await zipBlob.arrayBuffer();
           // @ts-ignore
-          const res = await window.api.saveBlob(arrayBuffer, `Attendo_Grade_${activeWorkspace}_QRs.zip`);
+          const res = await window.api.saveBlob(arrayBuffer, isPartial ? `Attendo_Partial_QRs_${Date.now()}.zip` : `Attendo_Grade_${activeWorkspace}_QRs.zip`);
           if (!res.success && res.msg !== 'Cancelled') {
             throw new Error(res.msg);
           }
@@ -2900,6 +2905,7 @@ function App() {
                       <div className="flex items-center gap-2">
                         <span className="text-teal-400 text-xs font-bold uppercase tracking-widest bg-teal-500/10 px-3 py-1.5 rounded-lg border border-teal-500/20">{selectedStudents.length} Selected</span>
                         {!showDeleted ? (
+                          <button onClick={() => handleGenerateCards()} className="bg-teal-500 hover:bg-teal-400 text-slate-900 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] flex items-center gap-1.5"><QrCode className="w-3.5 h-3.5" /> Download QRs</button>
                           <button onClick={handleBulkArchive} className="bg-rose-500/20 hover:bg-rose-500 hover:text-white text-rose-400 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-rose-500/30 shadow-sm">Archive</button>
                         ) : (
                           <>
