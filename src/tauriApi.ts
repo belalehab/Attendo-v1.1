@@ -418,68 +418,7 @@ const totalSessionsCount = logicalWeeks.length;
            if (decoded.exp) exp = decoded.exp;
         } catch(e) {}
 
-        const hwId: string = await invoke("get_hardware_id");
-
-        // Supabase configuration
-        const SUPABASE_URL = "https://tvrfsboieedeqvkvwxuy.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2cmZzYm9pZWVkZXF2a3Z3eHV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwODUwMTksImV4cCI6MjEwMzY2MTAxOX0.HcN76aOgoRCzT1b8Kxdzv9xXQE-ZU64AMycSkAna8bM";
-
-        let isOnlineCheckSuccessful = false;
-        let isRevoked = false;
-
-        try {
-          const res = await fetch(`${SUPABASE_URL}/rest/v1/revoked_licenses?hw_id=eq.${encodeURIComponent(hwId)}&select=hw_id`, {
-            method: 'GET',
-            cache: 'no-store', // CRITICAL: Prevent Chromium from returning cached 200 responses when offline
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-              'Content-Type': 'application/json',
-              'Pragma': 'no-cache'
-            },
-            signal: AbortSignal.timeout(3000)
-          });
-          
-          if (res.ok) {
-            isOnlineCheckSuccessful = true;
-            const data = await res.json();
-            if (data && data.length > 0) {
-              isRevoked = true;
-            }
-          }
-        } catch (fetchError) {
-          // Network error or timeout, proceed to offline check
-        }
-
-        if (isOnlineCheckSuccessful) {
-          if (isRevoked) {
-            await db.execute("DELETE FROM settings WHERE key = 'license_token'");
-            return { valid: false, status: 'REVOKED', msg: 'This license has been permanently revoked by the administrator.' };
-          } else {
-            await db.execute("INSERT OR REPLACE INTO settings (key, value) VALUES ('license_sync_timestamp', $1)", [now.toString()]);
-            return { valid: true, warning: false, plan, duration, exp };
-          }
-        }
-
-        // Offline logic
-        const syncRow: any = await db.select("SELECT value FROM settings WHERE key = 'license_sync_timestamp'");
-        let lastSync = now;
-        if (syncRow && syncRow.length > 0 && syncRow[0].value) {
-            const parsed = parseInt(syncRow[0].value, 10);
-            if (!isNaN(parsed) && parsed > 0) {
-                lastSync = parsed;
-            }
-        }
-        
-        const daysSinceSync = (now - lastSync) / (1000 * 60 * 60 * 24);
-
-        if (daysSinceSync < 14) {
-          return { valid: true, warning: false, plan, duration, exp };
-        } else if (daysSinceSync <= 21) {
-          return { valid: true, warning: true, daysLeft: Math.ceil(21 - daysSinceSync), plan, duration, exp };
-        } else {
-          return { valid: false, status: 'SYNC_REQUIRED', msg: 'You have been offline for over 21 days. Please connect to the internet to sync your license.' };
-        }
+        return { valid: true, warning: false, plan, duration, exp };
       } catch (e: any) {
         return { valid: false, status: 'INVALID', msg: e.toString() };
       }
