@@ -1,4 +1,6 @@
-use std::process::Command;
+﻿use std::process::Command;
+#[cfg(target_os = "windows")]
+use std::os::windows::process::CommandExt;
 use sha2::{Sha256, Digest};
 use jsonwebtoken::{decode, DecodingKey, Validation, Algorithm};
 use serde::{Deserialize, Serialize};
@@ -13,6 +15,7 @@ pub async fn generate_hardware_fingerprint() -> Result<String, String> {
     #[cfg(target_os = "windows")]
     {
         let output = Command::new("powershell")
+            .creation_flags(0x08000000)
             .args(&[
                 "-NoProfile",
                 "-Command",
@@ -56,3 +59,4 @@ pub fn verify_license(token: &str, expected_hw_id: &str) -> Result<LicenseClaims
 
     Ok(token_data.claims)
 }
+
