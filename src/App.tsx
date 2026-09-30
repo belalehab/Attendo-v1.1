@@ -2905,8 +2905,10 @@ function App() {
                       <div className="flex items-center gap-2">
                         <span className="text-teal-400 text-xs font-bold uppercase tracking-widest bg-teal-500/10 px-3 py-1.5 rounded-lg border border-teal-500/20">{selectedStudents.length} Selected</span>
                         {!showDeleted ? (
+                          <>
                           <button onClick={() => handleGenerateCards()} className="bg-teal-500 hover:bg-teal-400 text-slate-900 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-[0_0_15px_rgba(20,184,166,0.2)] flex items-center gap-1.5"><QrCode className="w-3.5 h-3.5" /> Download QRs</button>
                           <button onClick={handleBulkArchive} className="bg-rose-500/20 hover:bg-rose-500 hover:text-white text-rose-400 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-rose-500/30 shadow-sm">Archive</button>
+                        </>
                         ) : (
                           <>
                             <button onClick={handleBulkRestore} className="bg-teal-500/20 hover:bg-teal-500 hover:text-slate-900 text-teal-400 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-teal-500/30 shadow-sm">Restore</button>
