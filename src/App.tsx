@@ -2809,7 +2809,7 @@ function App() {
                 </div>
                 <div className="flex flex-wrap gap-4">
                   <button 
-                    onClick={() => setShowDeleted(!showDeleted)}
+                    onClick={() => { setShowDeleted(!showDeleted); setSearchQuery(''); }}
                     className={`border h-[48px] px-6 rounded-xl font-bold text-sm transition-colors flex items-center gap-2 ${showDeleted ? 'bg-rose-500/20 text-rose-400 border-rose-500/50' : 'bg-transparent text-gray-400 border-white/10 hover:text-white'}`}
                   >
                     {showDeleted ? <><ArrowLeft className="w-4 h-4" />Active Students</> : <><Archive className="w-4 h-4" />Archived Students</>}
@@ -3023,7 +3023,7 @@ function App() {
                     </div>
                     <div className="flex flex-wrap gap-4">
                       <button 
-                        onClick={() => setShowArchivedSessions(!showArchivedSessions)}
+                        onClick={() => { setShowArchivedSessions(!showArchivedSessions); setSearchQuery(''); }}
                         className={`border h-[48px] px-6 rounded-xl font-bold text-sm transition-colors flex items-center gap-2 ${showArchivedSessions ? 'bg-rose-500/20 text-rose-400 border-rose-500/50' : 'bg-transparent text-gray-400 border-white/10 hover:text-white'}`}
                       >
                         {showArchivedSessions ? <><ArrowLeft className="w-4 h-4" />Active Sessions</> : <><Archive className="w-4 h-4" />Archived Sessions</>}
