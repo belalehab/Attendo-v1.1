@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Focus on Teaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
+        .gradient-text { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-radius: 1.5rem; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; pointer-events: none; z-index: 0; }
+    </style>
+</head>
+
+<body class="relative">
+
+    <!-- Background Orbs -->
+    <div class="glow-orb w-[600px] h-[600px] bg-teal-500 top-[-200px] left-[-200px]"></div>
+    <div class="glow-orb w-[800px] h-[800px] bg-indigo-600 top-[20%] right-[-300px]"></div>
+    <div class="glow-orb w-[500px] h-[500px] bg-purple-500 bottom-[10%] left-[-100px]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card !rounded-none !border-x-0 !border-t-0 !bg-slate-900/80">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="public/attendo-icon.png" class="w-10 h-10 drop-shadow-[0_0_10px_rgba(45,212,191,0.5)]" alt="Attendo Logo" />
+                <a href="index.html" class="text-2xl font-black tracking-tight hover:text-teal-400">ATTENDO</a>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-300">
+                <a href="features.html" class="hover:text-teal-400 transition-colors">Features</a>
+                <a href="index.html#how-it-works" class="hover:text-teal-400 transition-colors">How it Works</a>
+                <a href="pricing.html" class="hover:text-teal-400 transition-colors">Pricing</a>
+                <a href="features.html#requirements" class="hover:text-teal-400 transition-colors">Requirements</a>
+            </div>
+            <a href="contact.html" class="bg-teal-500 hover:bg-teal-400 text-slate-900 px-6 py-2.5 rounded-full font-bold transition-all shadow-[0_0_15px_rgba(20,184,166,0.3)]">
+                Get Your License
+            </a>
+        </div>
+    </nav>
+<section id="features" class="pt-40 pb-24 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">Automate Your Classroom. <span class="text-indigo-400">Reclaim Your Time.</span></h2>
+                <!--<p class="text-gray-400 max-w-2xl mx-auto text-lg">A powerful, reliable attendance solution engineered specifically for modern academic workflows.</p>-->
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-teal-500/10 border border-teal-500/20 rounded-2xl flex items-center justify-center mb-6 text-teal-400">
+                        <i data-lucide="qr-code" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Lightning QR Scanner</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Instantly scan student QR cards using your laptop webcam or connect your smartphone camera via WiFi.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-center justify-center mb-6 text-indigo-400">
+                        <i data-lucide="wifi-off" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">100% Offline & Local</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Your data stays strictly on your machine.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-purple-500/10 border border-purple-500/20 rounded-2xl flex items-center justify-center mb-6 text-purple-400">
+                        <i data-lucide="file-spreadsheet" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Beautiful PDF & Excel Exports</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Generate professional attendance sheets with one click. Files are automatically saved into organized folders on your Desktop. Supports both single-session exports and full semester Master Reports.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div data-aos="fade-up" data-aos-delay="400" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center mb-6 text-amber-400">
+                        <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Smart Analytics</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Instantly identify at-risk students who fall below required attendance thresholds. Visualize class attendance trends via interactive charts.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div data-aos="fade-up" data-aos-delay="500" class="glass-card p-8 hover:-translate-y-2 transition-transform duration-300 md:col-span-2">
+                    <div class="w-14 h-14 bg-rose-500/10 border border-rose-500/20 rounded-2xl flex items-center justify-center mb-6 text-rose-400">
+                        <i data-lucide="users" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Unified Entry Panel & QR Bundling</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Student forgot their QR card? Use the Entry Panel to rapidly log them manually. Need QR cards? Attendo automatically generates high-resolution QR codes for selected students into a ZIP file ready for sharing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+
+<section id="requirements" class="py-24 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 data-aos="fade-up" class="text-4xl font-black mb-12">System Requirements</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div data-aos="fade-up" data-aos-delay="100" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="monitor" class="w-8 h-8 text-teal-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">OS</h4>
+                    <p class="text-xs text-gray-400">Windows 10 or 11<br />(64-bit)</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="cpu" class="w-8 h-8 text-indigo-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Memory</h4>
+                    <p class="text-xs text-gray-400">4GB RAM Minimum<br />(8GB Recommended)</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="camera" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Camera</h4>
+                    <p class="text-xs text-gray-400">Built-in Webcam or<br />Smartphone (via WiFi)</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="400" class="glass-card p-6 flex flex-col items-center text-center">
+                    <i data-lucide="hard-drive" class="w-8 h-8 text-amber-400 mb-4"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Storage</h4>
+                    <p class="text-xs text-gray-400">100MB Free Space</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA -->
+<footer class="border-t border-white/5 bg-slate-950 py-12 px-6 text-center relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <img src="public/attendo-icon.png" class="w-10 h-10 mb-4 opacity-50 grayscale" alt="Attendo Logo" />
+            <h3 class="text-xl font-black mb-2 tracking-widest text-gray-400">ATTENDO</h3>
+            <p class="text-gray-500 text-sm mb-8">Focus on Teaching, Attendo Handles the Rest.</p>
+            
+            <p class="text-gray-600 text-xs">
+                &copy; 2026 Developed by Dr. Belal El-Fakharany. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        // Initialize AOS Animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 600,
+            easing: 'ease-out-cubic',
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendo - Focus on Teaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; overflow-x: hidden; }
+        .gradient-text { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-radius: 1.5rem; }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; pointer-events: none; z-index: 0; }
+    </style>
+</head>
+
+<body class="relative">
+
+    <!-- Background Orbs -->
+    <div class="glow-orb w-[600px] h-[600px] bg-teal-500 top-[-200px] left-[-200px]"></div>
+    <div class="glow-orb w-[800px] h-[800px] bg-indigo-600 top-[20%] right-[-300px]"></div>
+    <div class="glow-orb w-[500px] h-[500px] bg-purple-500 bottom-[10%] left-[-100px]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-card !rounded-none !border-x-0 !border-t-0 !bg-slate-900/80">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="public/attendo-icon.png" class="w-10 h-10 drop-shadow-[0_0_10px_rgba(45,212,191,0.5)]" alt="Attendo Logo" />
+                <a href="index.html" class="text-2xl font-black tracking-tight hover:text-teal-400">ATTENDO</a>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-gray-300">
+                <a href="features.html" class="hover:text-teal-400 transition-colors">Features</a>
+                <a href="index.html#how-it-works" class="hover:text-teal-400 transition-colors">How it Works</a>
+                <a href="pricing.html" class="hover:text-teal-400 transition-colors">Pricing</a>
+                <a href="features.html#requirements" class="hover:text-teal-400 transition-colors">Requirements</a>
+            </div>
+            <a href="contact.html" class="bg-teal-500 hover:bg-teal-400 text-slate-900 px-6 py-2.5 rounded-full font-bold transition-all shadow-[0_0_15px_rgba(20,184,166,0.3)]">
+                Get Your License
+            </a>
+        </div>
+    </nav>
+<section id="pricing" class="pt-40 pb-24 px-6 relative z-10 bg-black/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-4">Affordable As a Cup of Coffee</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-2">Invest in your peace of mind. Zero hidden fees, infinite value.</p>
+                <p class="text-teal-400 font-bold tracking-wide">Choose the license that fits your teaching workload.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Plus Plan -->
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 h-full">
+                        <div>
+                            <h3 class="text-white font-bold text-xl mb-1 uppercase tracking-wider">Plus</h3>
+                            <p class="text-gray-400 text-xs mb-8">Individual instructors</p>
+                            <p class="text-teal-400/80 text-xs font-bold uppercase tracking-widest mb-8 mt-1">1 User</p>
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-white">600</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 25% vs. Individual Monthly</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-teal-400">1,000</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 50% vs. Individual Monthly</p>
+                            </div>
+                            <a href="#contact" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl transition-all text-center block">Select Plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-card p-8 flex flex-col justify-between hover:-translate-y-2 transition-transform duration-300 h-full">
+                        <div>
+                            <h3 class="text-white font-bold text-xl mb-1 uppercase tracking-wider">Pro</h3>
+                            <p class="text-gray-400 text-xs mb-8">Teaching teams</p>
+                            <p class="text-teal-400/80 text-xs font-bold uppercase tracking-widest mb-8 mt-1">2â€“4 Users</p>
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-white">500</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 38% vs. Individual Monthly</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-teal-400">800</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 60% vs. Individual Monthly</p>
+                            </div>
+                        </div>
+                        <a href="#contact" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 rounded-xl transition-all text-center mt-auto block">Select Pro</a>
+                    </div>
+                </div>
+
+                <!-- Ultimate Plan (Most Popular) -->
+                <div data-aos="zoom-in" data-aos-delay="300">
+                    <div class="glass-card p-8 flex flex-col justify-between border-teal-500/50 bg-teal-500/5 relative shadow-2xl shadow-teal-900/20 z-20 hover:-translate-y-2 transition-transform duration-300 h-full">
+                        <div class="absolute top-0 right-0 bg-teal-500 text-slate-900 text-[10px] font-black px-4 py-1.5 uppercase tracking-widest rounded-bl-xl rounded-tr-xl">MAXIMUM SAVING</div>
+                        <div>
+                            <h3 class="text-white font-bold text-xl mb-1 uppercase tracking-wider">Ultimate</h3>
+                            <p class="text-teal-200/70 text-xs mb-8">Departments</p>
+                            <p class="text-teal-400/80 text-xs font-bold uppercase tracking-widest mb-8 mt-1">5+ Users</p>
+                            <div class="mb-6 pb-6 border-b border-white/10">
+                                <p class="text-gray-400 text-xs uppercase tracking-widest font-semibold mb-2">Semester License</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-white">400</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 50% vs. Individual Monthly</p>
+                            </div>
+                            
+                            <div class="mb-8">
+                                <p class="text-teal-400 text-xs uppercase tracking-widest font-semibold mb-2">Academic Year</p>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-4xl font-black text-teal-400">600</span>
+                                    <span class="text-gray-500 text-sm font-bold whitespace-nowrap">EGP / user</span>
+                                </div>
+                                <p class="text-teal-500/70 text-[10px] mt-1 font-semibold">Save 70% vs. Individual Monthly</p>
+                            </div>
+                        </div>
+                        <a href="#contact" class="w-full bg-teal-500 hover:bg-teal-400 text-slate-900 font-black py-3 rounded-xl transition-all text-center shadow-[0_0_15px_rgba(20,184,166,0.3)] mt-auto block">Select Ultimate</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Occasional User Callout -->
+            <div data-aos="fade-up" class="max-w-4xl mx-auto mt-12 bg-gradient-to-r from-teal-500/10 to-indigo-500/10 border border-teal-500/20 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between shadow-2xl shadow-teal-900/10 gap-6">
+                <div class="text-center md:text-left">
+                    <h4 class="text-white font-bold text-xl uppercase tracking-widest">Teaching Occasionally?</h4>
+                    <p class="text-gray-400 text-sm mt-1">Get a 1-Month Individual License for just 200 EGP.</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="#contact" class="bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-6 rounded-xl transition-all whitespace-nowrap hidden md:block">Get 1-Month License</a>
+                </div>
+            </div>
+
+            <!-- Footer Text Block (No Box) -->
+            <div data-aos="fade-up" class="text-center mt-12 flex flex-col gap-3">
+                <p class="text-white/40 text-[10px] md:text-xs font-medium tracking-widest uppercase">
+                    SEMESTER LICENSE: 4 MONTHS. &nbsp;&nbsp;|&nbsp;&nbsp;  ACADEMIC YEAR LICENSE: 10 MONTHS PLUS 2 FREE MONTHS OF SUMMER ACCESS.
+                </p>
+                <p class="text-white/40 text-[10px] md:text-xs font-medium tracking-widest uppercase mt-2">
+                    ALL LICENSES INCLUDE UNLIMITED ATTENDANCE SESSIONS AND FULL ACCESS TO ALL FEATURES.
+                </p>
+            </div>
+
+            <!-- Free Trial Block -->
+            <div data-aos="fade-up" class="max-w-3xl mx-auto mt-16">
+                <div class="glass-card p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border-indigo-500/30 bg-indigo-500/5 relative overflow-hidden">
+                    <div class="absolute w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-[60px] top-0 left-0 pointer-events-none"></div>
+                    <div class="relative z-10 text-center sm:text-left">
+                        <h3 class="text-2xl font-black text-white mb-2">14-Day Free Trial</h3>
+                        <p class="text-gray-300 text-sm">Test the full features for 14 days.</p>
+                    </div>
+                    <a href="#contact" class="relative z-10 whitespace-nowrap bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">Request Trial Key</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- System Requirements -->
+<footer class="border-t border-white/5 bg-slate-950 py-12 px-6 text-center relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <img src="public/attendo-icon.png" class="w-10 h-10 mb-4 opacity-50 grayscale" alt="Attendo Logo" />
+            <h3 class="text-xl font-black mb-2 tracking-widest text-gray-400">ATTENDO</h3>
+            <p class="text-gray-500 text-sm mb-8">Focus on Teaching, Attendo Handles the Rest.</p>
+            
+            <p class="text-gray-600 text-xs">
+                &copy; 2026 Developed by Dr. Belal El-Fakharany. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        // Initialize AOS Animations
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 600,
+            easing: 'ease-out-cubic',
+        });
+    </script>
+</body>
+</html>
+
