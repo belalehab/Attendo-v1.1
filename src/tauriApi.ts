@@ -1337,6 +1337,15 @@ const totalSessionsCount = logicalWeeks.length;
       }
     },
 
+    fixWindowsHotspot: async () => {
+      try {
+        await invoke("fix_windows_hotspot");
+        return { success: true };
+      } catch (e) {
+        return { success: false, error: e };
+      }
+    },
+
     exportBackup: async (workspace: string, autoName: string) => {
       try {
         const { save } = await import('@tauri-apps/plugin-dialog');

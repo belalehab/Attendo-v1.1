@@ -115,3 +115,28 @@ pub fn auto_shadow_export(session_name: String, pdf_bytes: Vec<u8>, excel_bytes:
     Ok(true)
 }
 
+#[tauri::command]
+pub fn fix_windows_hotspot() -> Result<bool, String> {
+    #[cfg(target_os = "windows")]
+    {
+        use std::process::Command;
+        // Using PowerShell to elevate privileges via UAC
+        let script = "Start-Process cmd -ArgumentList '/c reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\NlaSvc\\Parameters\\Internet /v EnableActiveProbing /t REG_DWORD /d 0 /f' -Verb RunAs -WindowStyle Hidden";
+        match Command::new("powershell")
+            .args(["-Command", script])
+            .output() {
+                Ok(output) => {
+                    if output.status.success() {
+                        Ok(true)
+                    } else {
+                        Err("Failed to execute registry fix. UAC might have been rejected.".to_string())
+                    }
+                },
+                Err(e) => Err(e.to_string())
+            }
+    }
+    #[cfg(not(target_os = "windows"))]
+    {
+        Ok(true)
+    }
+}

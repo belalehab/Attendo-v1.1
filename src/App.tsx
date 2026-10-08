@@ -1019,6 +1019,11 @@ function App() {
 
   const handleStartMobileServer = async () => {
     // @ts-ignore
+    if (window.api.fixWindowsHotspot) {
+      // @ts-ignore
+      await window.api.fixWindowsHotspot();
+    }
+    // @ts-ignore
     const url = await window.api.getLocalIP();
     setScannerUrl(url); 
   };
@@ -1277,7 +1282,7 @@ function App() {
 
           for (let i = 0; i < elements.length; i++) {
             const el = elements[i] as HTMLElement;
-            const student = gradeStudents[i];
+            const studentName = el.getAttribute('data-name') || 'Unknown_Student';
             
             // 🚀 FIXED: skipFonts prevents html-to-image from crashing if offline or blocked by CORS
             const dataUrl = await toJpeg(el, { 
@@ -1288,7 +1293,7 @@ function App() {
             });
             const base64Data = dataUrl.split(',')[1]; 
 
-            const safeName = student.name.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]/g, '').trim();
+            const safeName = studentName.replace(/[^a-zA-Z0-9\u0600-\u06FF\s]/g, '').trim();
             folder?.file(`${safeName}_QR.jpg`, base64Data, { base64: true });
           }
 
@@ -1599,6 +1604,7 @@ function App() {
     
     // Filter the workspace sessions exactly how the analytics tab does
     const relevantSessions = pastSessions.filter(s => {
+      if (!s.session_name.startsWith(`[Grade ${activeWorkspace}]`)) return false;
       // Must match the current active/archive view of the analytics tab
       const matchesArchive = showArchivedSessions ? s.is_archived === 1 : s.is_archived === 0;
       if (!matchesArchive) return false;
@@ -4421,9 +4427,10 @@ function App() {
 
       {/* Hidden Render Zone for QRs */}
       <div className="absolute top-[-20000px] left-[-20000px] flex flex-col gap-10">
-        {printData.map((student, index) => (
+        {printData.map((student) => (
           <div 
-            key={index} 
+            key={student.national_id || student.nationalId} 
+            data-name={student.name}
             className="qr-export-card bg-white flex flex-col items-center justify-center border-4 border-gray-100"
             style={{ width: '600px', height: '600px', padding: '40px' }}
           >

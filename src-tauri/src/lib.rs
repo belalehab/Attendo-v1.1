@@ -1,4 +1,4 @@
-﻿#[cfg_attr(mobile, tauri::mobile_entry_point)]
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
 
 pub mod security;
 pub mod server;
@@ -25,7 +25,8 @@ pub fn run() {
             commands::get_local_ip,
             commands::create_temp_backup,
             commands::delete_temp_backup,
-            commands::auto_shadow_export
+            commands::auto_shadow_export,
+            commands::fix_windows_hotspot
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
